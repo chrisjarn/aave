@@ -2,6 +2,7 @@ import type { Config } from "tailwindcss";
 import defaultTheme from "tailwindcss/defaultTheme";
 
 export default {
+  darkMode: "class",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -74,9 +75,10 @@ export default {
         card: "1rem",
       },
       boxShadow: {
-        card: "0 8px 40px rgba(0,0,0,0.08)",
-        btn: "0 0 0 1.5px rgba(0,0,0,.06)",
-        "btn-hover": "0 0 0 1.5px rgba(0,0,0,0.1)",
+        card: "0 0 0 1px var(--shadow-stroke-2), 0 8px 40px var(--shadow-high)",
+        overlay: "0 0 0 1px var(--shadow-stroke-2), 0 6px 32px var(--shadow-high)",
+        btn: "0 0 0 1.5px var(--shadow-stroke-1)",
+        "btn-hover": "0 0 0 1.5px var(--shadow-stroke-2)",
       },
       keyframes: {
         pulse: {

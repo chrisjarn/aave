@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 // Existing
 import { Button } from "../../components/ui/button"
@@ -76,6 +76,11 @@ export default function ComponentsShowcase() {
   const [switchB, setSwitchB]         = useState(true)
   const [selectVal, setSelectVal]     = useState<string | undefined>()
   const [sortDir, setSortDir]         = useState<"asc" | "desc" | "none">("none")
+  const [dark, setDark]               = useState(false)
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", dark)
+  }, [dark])
 
   return (
     <TooltipProvider>
@@ -83,8 +88,14 @@ export default function ComponentsShowcase() {
         <div className="mx-auto max-w-[986px]">
 
           {/* ── Page header ────────────────────────────────── */}
-          <div className="mb-4">
+          <div className="mb-4 flex items-center justify-between">
             <Badge variant="purple">Component Library</Badge>
+            <button
+              onClick={() => setDark(d => !d)}
+              className="flex items-center gap-2 rounded-pill bg-bg-4 px-4 py-2 text-sm font-medium text-fg-2 transition-colors hover:bg-bg-5 hover:text-fg-1"
+            >
+              <span>{dark ? "☀ Light" : "☾ Dark"}</span>
+            </button>
           </div>
           <h1 className="mb-3 text-balance font-brand text-5xl font-semibold leading-display tracking-tighter text-fg-1">
             Aave UI Primitives
