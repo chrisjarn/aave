@@ -243,64 +243,64 @@
 html.dark {
   color-scheme: dark;
 
-  /* Backgrounds: deep charcoal scale, bg-1 is the page base */
-  --bg-1: #100f0f;
-  --bg-2: #1a1919;
-  --bg-3: #1f1e1e;
-  --bg-4: #2a2828;
-  --bg-5: #3b3737;
-  --bg-6: #4a4646;
+  /* ── Backgrounds: pure flat dark scale, no warmth, no transparency ── */
+  --bg-1: #0e0e0e;
+  --bg-2: #141414;
+  --bg-3: #1a1a1a;
+  --bg-4: #222222;
+  --bg-5: #2c2c2c;
+  --bg-6: #383838;
 
-  /* Borders: white at low opacity */
-  --border-1: hsla(0, 0%, 100%, 0.08);
-  --border-2: hsla(0, 0%, 100%, 0.12);
+  /* ── Borders ── */
+  --border-1: rgba(255, 255, 255, 0.08);
+  --border-2: rgba(255, 255, 255, 0.13);
 
-  /* Foreground: white → muted greys */
-  --fg-1: #fff;
+  /* ── Foreground ── */
+  --fg-1: #ffffff;
   --fg-2: #bcbbbb;
   --fg-3: #8f8e8e;
   --fg-4: #636161;
 
-  /* Purple scale — same hue, same layering rule applies */
+  /* ── Purple scale ── */
   --purple-1: #9391ff;
   --purple-2: #bdbbff;
   --purple-3: #e2e0ff;
   --purple-4: #f0efff;
 
-  /* Blue scale — vibrant electric blue in dark mode */
+  /* ── Blue scale ── */
   --blue-1: #008dff;
   --blue-2: #00b1ff;
   --blue-3: #79ecff;
   --blue-4: #c5f8ff;
 
-  /* Accent colours — all mapped to pro.aave dark equivalents */
-  --red: #ff7800;
-  --blue: #79ecff;
+  /* ── Accent colours ── */
+  --red:    #ff7800;
+  --blue:   #79ecff;
   --purple: #9391ff;
-  --green: #00c1b8;
+  --green:  #00c1b8;
   --yellow: #ffd200;
 
-  /* GHO */
+  /* ── GHO ── */
   --gho-1: #3eea69;
 
-  /* Focus ring */
+  /* ── Focus ── */
   --focus: rgba(85, 167, 251, 0.3);
 
-  /* Shadows — stronger contrast on dark backgrounds */
-  --shadow-low: rgba(0, 0, 0, 0.15);
-  --shadow-medium: rgba(0, 0, 0, 0.25);
-  --shadow-high: rgba(0, 0, 0, 0.35);
-  --shadow-strong: rgba(0, 0, 0, 0.5);
-  --shadow-stroke-1: hsla(0, 0%, 100%, 0.08);
-  --shadow-stroke-2: hsla(0, 0%, 100%, 0.1);
+  /* ── Shadows — stronger on dark ── */
+  --shadow-low:      rgba(0, 0, 0, 0.15);
+  --shadow-medium:   rgba(0, 0, 0, 0.25);
+  --shadow-high:     rgba(0, 0, 0, 0.35);
+  --shadow-strong:   rgba(0, 0, 0, 0.5);
+  --shadow-stroke-1: rgba(255, 255, 255, 0.08);
+  --shadow-stroke-2: rgba(255, 255, 255, 0.10);
 
-  /* Status / health — vivid on dark */
-  --danger: #ff0000;
+  /* ── Status / health ── */
+  --danger:       #ff0000;
   --danger-light: #2d1010;
-  --warning: #ff8e00;
-  --valid: #00c1b8;
-  --verified: #4dafff;
-  --gho-color: #3eea69;
+  --warning:      #ff8e00;
+  --valid:        #00c1b8;
+  --verified:     #4dafff;
+  --gho-color:    #3eea69;
   --health-1: #ff5656;
   --health-2: #ff992b;
   --health-3: #f0c914;
@@ -309,40 +309,15 @@ html.dark {
   --health-6: #5de35b;
   --health-7: #12f6aa;
 
-  /* Scrim / gradient stops for dark backgrounds */
+  /* ── Gradient stops remapped to flat dark base ── */
   --gradient-stops:
-    #100f0f 0%, hsla(0, 3%, 6%, 0.738) 19%, hsla(0, 3%, 6%, 0.541) 34%,
-    hsla(0, 3%, 6%, 0.382) 47%, hsla(0, 3%, 6%, 0.278) 56.5%,
-    hsla(0, 3%, 6%, 0.194) 65%, hsla(0, 3%, 6%, 0.126) 73%,
-    hsla(0, 3%, 6%, 0.075) 80.2%, hsla(0, 3%, 6%, 0.042) 86.1%,
-    hsla(0, 3%, 6%, 0.021) 91%, hsla(0, 3%, 6%, 0.008) 95.2%,
-    hsla(0, 3%, 6%, 0.002) 98.2%, hsla(0, 3%, 6%, 0);
+    #0e0e0e 0%, rgba(14,14,14,0.738) 19%, rgba(14,14,14,0.541) 34%,
+    rgba(14,14,14,0.382) 47%, rgba(14,14,14,0.278) 56.5%,
+    rgba(14,14,14,0.194) 65%, rgba(14,14,14,0.126) 73%,
+    rgba(14,14,14,0.075) 80.2%, rgba(14,14,14,0.042) 86.1%,
+    rgba(14,14,14,0.021) 91%, rgba(14,14,14,0.008) 95.2%,
+    rgba(14,14,14,0.002) 98.2%, rgba(14,14,14,0);
 }
 
-@supports (color: color(display-p3 1 1 1)) {
-  html.dark {
-    --bg-1: color(display-p3 0.0627 0.0588 0.0588);
-    --bg-2: color(display-p3 0.102 0.098 0.098);
-    --bg-3: color(display-p3 0.1216 0.1176 0.1176);
-    --bg-4: color(display-p3 0.1647 0.1569 0.1569);
-    --bg-5: color(display-p3 0.2314 0.2157 0.2157);
-    --bg-6: color(display-p3 0.2902 0.2745 0.2745);
-    --border-1: color(display-p3 1 1 1 / 0.08);
-    --border-2: color(display-p3 1 1 1 / 0.12);
-    --fg-1: color(display-p3 1 1 1);
-    --fg-2: color(display-p3 0.7373 0.7333 0.7333);
-    --fg-3: color(display-p3 0.5608 0.5569 0.5569);
-    --fg-4: color(display-p3 0.3882 0.3804 0.3804);
-    --purple-1: color(display-p3 0.5765 0.5686 1);
-    --purple-2: color(display-p3 0.7412 0.7333 1);
-    --purple-3: color(display-p3 0.8863 0.8784 1);
-    --purple-4: color(display-p3 0.9412 0.9373 1);
-    --blue-1: color(display-p3 0 0.5529 1);
-    --blue-2: color(display-p3 0 0.6941 1);
-    --blue-3: color(display-p3 0.4745 0.9255 1);
-    --blue-4: color(display-p3 0.7725 0.9725 1);
-    --focus: color(display-p3 0.3333 0.6549 0.9843 / 0.3);
-    --shadow-stroke-1: color(display-p3 1 1 1 / 0.08);
-    --shadow-stroke-2: color(display-p3 1 1 1 / 0.1);
-  }
-}
+/* display-p3 overrides are intentionally omitted for dark mode —
+   flat sRGB values are correct and should not be tinted by wide-gamut interpolation */
