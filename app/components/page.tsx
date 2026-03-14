@@ -349,9 +349,9 @@ export default function ComponentsShowcase() {
           <SectionDivider title="Topic Card" />
           <SectionLabel>Matches colourful guide category cards</SectionLabel>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-1">
-            <TopicCard title="Web3" subtitle="Blockchain basics." count={6} accentColor="#f59e0b" />
-            <TopicCard title="DeFi" subtitle="Decentralised finance." count={12} accentColor="var(--purple-1)" />
-            <TopicCard title="Security" subtitle="Keep your funds safe." count={4} accentColor="var(--blue-1)" />
+            <TopicCard title="Web3" subtitle="Blockchain basics." count={6} accent="orange" />
+            <TopicCard title="DeFi" subtitle="Decentralised finance." count={12} accent="purple" />
+            <TopicCard title="Security" subtitle="Keep your funds safe." count={4} accent="blue" />
           </div>
 
           {/* ════ GUIDANCE CARD ═════════════════════════════ */}

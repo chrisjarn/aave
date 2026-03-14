@@ -70,12 +70,41 @@ function ArticleCard({ href = "#", cover, title, excerpt, className = "", ...pro
 // Matches the colourful category card (Web3 / DeFi / etc):
 // solid accent background, white text, title + subtitle + article count
 
+// Colour scale for TopicCard:
+// "purple" → bg: purple-2, text accents: purple-1, overlay circles: purple-3, deep accent: purple-1
+// "blue"   → bg: blue-2,   text accents: blue-1,   overlay circles: blue-3,   deep accent: blue-1
+// "orange" → uses raw accent-red token (single warm accent, no scale)
+// Semantic layering: mid-scale for surface → step up for interactive elements → step down for overlays
+
+type TopicAccent = "purple" | "blue" | "orange"
+
+const topicAccentMap: Record<TopicAccent, { bg: string; textColor: string; circleA: string; circleB: string }> = {
+  purple: {
+    bg: "bg-purple-2",
+    textColor: "text-fg-1",
+    circleA: "bg-purple-3",
+    circleB: "bg-purple-1",
+  },
+  blue: {
+    bg: "bg-blue-2",
+    textColor: "text-bg-1",
+    circleA: "bg-blue-3",
+    circleB: "bg-blue-1",
+  },
+  orange: {
+    bg: "bg-accent-red",
+    textColor: "text-bg-1",
+    circleA: "bg-yellow-200/40",
+    circleB: "bg-yellow-100/60",
+  },
+}
+
 interface TopicCardProps extends React.HTMLAttributes<HTMLAnchorElement> {
   href?: string
   title: string
   subtitle?: string
   count?: number
-  accentColor?: string
+  accent?: TopicAccent
   illustration?: React.ReactNode
 }
 
@@ -84,22 +113,29 @@ function TopicCard({
   title,
   subtitle,
   count,
-  accentColor = "var(--purple-1)",
+  accent = "purple",
   illustration,
   className = "",
-  style,
   ...props
 }: TopicCardProps) {
+  const { bg, textColor, circleA, circleB } = topicAccentMap[accent]
+
   return (
     <a
       href={href}
-      style={{ backgroundColor: accentColor, ...style }}
-      className={`relative group flex flex-col justify-end overflow-hidden rounded-2xl p-7 min-h-[200px] no-underline text-white ${className}`}
+      className={`relative group flex flex-col justify-end overflow-hidden rounded-2xl p-7 min-h-[200px] no-underline ${bg} ${textColor} ${className}`}
       {...props}
     >
-      {illustration && (
+      {/* Decorative circles — always rendered using the scale, illustration slot overrides */}
+      {illustration ? (
         <div className="absolute inset-0 pointer-events-none select-none flex items-start justify-end">
           {illustration}
+        </div>
+      ) : (
+        <div className="absolute top-0 right-0 pointer-events-none select-none" aria-hidden="true">
+          <div className={`absolute -top-6 -right-6 w-32 h-32 rounded-full opacity-70 ${circleA}`} />
+          <div className={`absolute top-8 right-6 w-20 h-20 rounded-full opacity-90 ${circleB}`} />
+          <div className={`absolute top-2 right-20 w-12 h-12 rounded-full opacity-50 ${circleA}`} />
         </div>
       )}
       <div className="relative z-10">
@@ -109,10 +145,10 @@ function TopicCard({
         {(subtitle || count != null) && (
           <div className="mt-2 flex items-center justify-between gap-4">
             {subtitle && (
-              <p className="text-sm leading-prose tracking-normal opacity-80">{subtitle}</p>
+              <p className="text-sm leading-prose tracking-normal opacity-70">{subtitle}</p>
             )}
             {count != null && (
-              <p className="text-sm font-medium leading-tight tracking-normal opacity-80 shrink-0">
+              <p className="text-sm font-medium leading-tight tracking-normal opacity-70 shrink-0">
                 {count} {count === 1 ? "Article" : "Articles"}
               </p>
             )}
@@ -174,4 +210,4 @@ function GuidanceCard({
 }
 
 export { StatCard, ArticleCard, TopicCard, GuidanceCard }
-export type { StatCardProps, ArticleCardProps, TopicCardProps, GuidanceCardProps }
+export type { StatCardProps, ArticleCardProps, TopicCardProps, GuidanceCardProps, TopicAccent }
