@@ -8,9 +8,9 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const variantStyles: Record<InputVariant, string> = {
-  default: "rounded-lg",
-  "pill-left": "rounded-[20px_6px_6px_20px]",
-  "pill-right": "rounded-[6px_20px_20px_6px]",
+  default: "rounded-xl",
+  "pill-left": "rounded-l-pill rounded-r-none",
+  "pill-right": "rounded-r-pill rounded-l-none",
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -18,20 +18,19 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const inputId = id ?? React.useId()
 
     return (
-      <div className="flex flex-col gap-2 w-full">
+      <div className="flex flex-col gap-1.5 w-full">
         {label && (
           <label
             htmlFor={inputId}
-            className="h-8 flex items-center gap-1.5 font-medium text-fg-1"
+            className="text-xs font-medium tracking-normal text-fg-2"
           >
             {label}
-            <div className="bg-accent-purple mt-px w-1.5 min-w-1.5 h-1.5 min-h-1.5 rounded-md flex-none" />
           </label>
         )}
         <input
           id={inputId}
           type={type}
-          className={`w-full border-none flex py-2.5 px-4 items-center gap-2 self-stretch h-10 bg-bg-1 text-fg-1 leading-prose tracking-normal focus:outline-none placeholder:text-fg-3 disabled:cursor-not-allowed disabled:opacity-50 [font-feature-settings:'cv11'_on] ${variantStyles[variant]} ${className ?? ""}`}
+          className={`w-full border-none h-11 px-4 bg-bg-3 text-fg-1 text-sm font-sans leading-prose tracking-normal placeholder:text-fg-3 focus:outline-none focus:ring-2 focus:ring-focus disabled:cursor-not-allowed disabled:opacity-50 transition-shadow duration-150 [font-feature-settings:'cv11'_on,'ss01'_on] ${variantStyles[variant]} ${className ?? ""}`}
           ref={ref}
           {...props}
         />

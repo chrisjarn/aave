@@ -88,7 +88,7 @@ const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
         role="combobox"
         aria-expanded={open}
         onClick={() => onOpenChange(!open)}
-        className={`flex w-full items-center justify-between gap-2 rounded-lg bg-bg-1 px-4 py-2.5 text-left leading-prose tracking-normal transition-colors border border-border-2 hover:bg-bg-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus ${className ?? ""}`}
+        className={`flex w-full items-center justify-between gap-2 rounded-xl bg-bg-3 px-4 h-11 text-left text-sm font-sans leading-prose tracking-normal transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-focus hover:bg-bg-4 ${className ?? ""}`}
         {...props}
       >
         <span className={displayValue ? "text-fg-1" : "text-fg-3"}>

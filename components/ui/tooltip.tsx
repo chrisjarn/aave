@@ -8,12 +8,12 @@ import { easeSwift } from "../../app/_lib/utils"
 
 interface TooltipContextValue {
   open: boolean
-  onOpenChange: (open: boolean) => void
+  setOpen: (v: boolean) => void
 }
 
 const TooltipContext = React.createContext<TooltipContextValue | null>(null)
 
-// ─── TooltipProvider ─────────────────────────────────────────────────────────
+// ─── Provider (pass-through for API compatibility) ────────────────────────────
 
 function TooltipProvider({ children }: { children: React.ReactNode }) {
   return <>{children}</>
@@ -22,94 +22,75 @@ function TooltipProvider({ children }: { children: React.ReactNode }) {
 // ─── Tooltip root ────────────────────────────────────────────────────────────
 
 interface TooltipProps {
-  open?: boolean
-  defaultOpen?: boolean
-  onOpenChange?: (open: boolean) => void
   children: React.ReactNode
-  delayDuration?: number
+  defaultOpen?: boolean
 }
 
-function Tooltip({ open: controlled, defaultOpen = false, onOpenChange, children, delayDuration = 300 }: TooltipProps) {
-  const [uncontrolled, setUncontrolled] = React.useState(defaultOpen)
-  const isControlled = controlled !== undefined
-  const open = isControlled ? controlled : uncontrolled
-  const timeoutRef = React.useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  const handleOpenChange = React.useCallback(
-    (next: boolean) => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current)
-      if (next) {
-        timeoutRef.current = setTimeout(() => {
-          if (!isControlled) setUncontrolled(true)
-          onOpenChange?.(true)
-        }, delayDuration)
-      } else {
-        if (!isControlled) setUncontrolled(false)
-        onOpenChange?.(false)
-      }
-    },
-    [isControlled, onOpenChange, delayDuration]
-  )
-
+function Tooltip({ children, defaultOpen = false }: TooltipProps) {
+  const [open, setOpen] = React.useState(defaultOpen)
   return (
-    <TooltipContext.Provider value={{ open, onOpenChange: handleOpenChange }}>
+    <TooltipContext.Provider value={{ open, setOpen }}>
       <div className="relative inline-flex">{children}</div>
     </TooltipContext.Provider>
   )
 }
 
 // ─── TooltipTrigger ──────────────────────────────────────────────────────────
+// Wraps any child — no extra button wrapper if child is already interactive
 
-const TooltipTrigger = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>(
-  ({ children, onMouseEnter, onMouseLeave, onFocus, onBlur, ...props }, ref) => {
+const TooltipTrigger = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+  ({ children, ...props }, ref) => {
     const ctx = React.useContext(TooltipContext)
-    if (!ctx) throw new Error("TooltipTrigger must be inside a Tooltip")
-    const { onOpenChange } = ctx
-
+    if (!ctx) throw new Error("TooltipTrigger must be inside Tooltip")
+    const { setOpen } = ctx
     return (
-      <button
+      <div
         ref={ref}
-        type="button"
-        onMouseEnter={(e) => { onOpenChange(true); onMouseEnter?.(e) }}
-        onMouseLeave={(e) => { onOpenChange(false); onMouseLeave?.(e) }}
-        onFocus={(e) => { onOpenChange(true); onFocus?.(e) }}
-        onBlur={(e) => { onOpenChange(false); onBlur?.(e) }}
+        onMouseEnter={() => setOpen(true)}
+        onMouseLeave={() => setOpen(false)}
+        onFocus={() => setOpen(true)}
+        onBlur={() => setOpen(false)}
+        className="inline-flex"
         {...props}
       >
         {children}
-      </button>
+      </div>
     )
   }
 )
 TooltipTrigger.displayName = "TooltipTrigger"
 
 // ─── TooltipContent ──────────────────────────────────────────────────────────
+// Matches the homepage icon tooltip:
+//   • small dark pill (bg-fg-1, text-bg-1)
+//   • 11–12px text, tight tracking
+//   • appears above trigger, centered
+//   • tiny y-slide in + fade, instant on exit
 
 type TooltipSide = "top" | "bottom" | "left" | "right"
 
 interface TooltipContentProps extends React.HTMLAttributes<HTMLDivElement> {
   side?: TooltipSide
-  sideOffset?: number
 }
 
-const sideStyles: Record<TooltipSide, string> = {
-  top: "bottom-[calc(100%+8px)] left-1/2 -translate-x-1/2",
-  bottom: "top-[calc(100%+8px)] left-1/2 -translate-x-1/2",
-  left: "right-[calc(100%+8px)] top-1/2 -translate-y-1/2",
-  right: "left-[calc(100%+8px)] top-1/2 -translate-y-1/2",
+const positionMap: Record<TooltipSide, string> = {
+  top:    "bottom-[calc(100%+7px)] left-1/2 -translate-x-1/2",
+  bottom: "top-[calc(100%+7px)] left-1/2 -translate-x-1/2",
+  left:   "right-[calc(100%+7px)] top-1/2 -translate-y-1/2",
+  right:  "left-[calc(100%+7px)] top-1/2 -translate-y-1/2",
 }
 
-const sideMotion: Record<TooltipSide, { initial: object }> = {
-  top: { initial: { y: 4 } },
-  bottom: { initial: { y: -4 } },
-  left: { initial: { x: 4 } },
-  right: { initial: { x: -4 } },
+const entryMotion: Record<TooltipSide, object> = {
+  top:    { y: 4 },
+  bottom: { y: -4 },
+  left:   { x: 4 },
+  right:  { x: -4 },
 }
 
 const TooltipContent = React.forwardRef<HTMLDivElement, TooltipContentProps>(
-  ({ className, side = "top", children, ...props }, ref) => {
+  ({ className = "", side = "top", children, ...props }, ref) => {
     const ctx = React.useContext(TooltipContext)
-    if (!ctx) throw new Error("TooltipContent must be inside a Tooltip")
+    if (!ctx) throw new Error("TooltipContent must be inside Tooltip")
     const { open } = ctx
 
     return (
@@ -118,10 +99,15 @@ const TooltipContent = React.forwardRef<HTMLDivElement, TooltipContentProps>(
           <motion.div
             ref={ref}
             role="tooltip"
-            initial={{ opacity: 0, ...sideMotion[side].initial }}
-            animate={{ opacity: 1, y: 0, x: 0, transition: { duration: 0.15, ease: easeSwift } }}
-            exit={{ opacity: 0, transition: { duration: 0.1 } }}
-            className={`absolute z-50 whitespace-nowrap rounded-lg bg-fg-1 px-3 py-1.5 text-xs font-medium leading-tight tracking-normal text-bg-1 shadow-card pointer-events-none ${sideStyles[side]} ${className ?? ""}`}
+            initial={{ opacity: 0, ...entryMotion[side] }}
+            animate={{
+              opacity: 1,
+              y: 0,
+              x: 0,
+              transition: { duration: 0.14, ease: easeSwift },
+            }}
+            exit={{ opacity: 0, transition: { duration: 0.08 } }}
+            className={`pointer-events-none absolute z-50 whitespace-nowrap rounded-pill bg-fg-1 px-3 py-[5px] text-xs font-medium leading-display tracking-caption text-bg-1 ${positionMap[side]} ${className}`}
             {...props}
           >
             {children}
