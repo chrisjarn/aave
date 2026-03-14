@@ -10,15 +10,15 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    "inline-flex items-center gap-1.5 shadow-[0_0_0_1.5px_rgba(0,0,0,.06)] rounded-full bg-[var(--bg-1)] font-medium leading-[125%] tracking-[-0.18px] text-[var(--fg-1)] transition-all duration-150 ease-in-out hover:bg-[#fcfcfb] hover:shadow-[0_0_0_1.5px_rgba(0,0,0,0.1)]",
+    "inline-flex items-center gap-1.5 shadow-btn rounded-pill bg-bg-1 font-medium leading-tight tracking-normal text-fg-1 transition-all duration-150 ease-in-out hover:bg-bg-5 hover:shadow-btn-hover",
   solid:
-    "inline-flex items-center justify-center rounded-full bg-[var(--fg-1)] font-medium leading-[105%] tracking-[-0.09px] text-[var(--bg-1)] transition-all duration-150 ease-in hover:opacity-80",
+    "inline-flex items-center justify-center rounded-pill bg-fg-1 font-medium leading-display tracking-body text-bg-1 transition-all duration-150 ease-in hover:opacity-80",
   ghost:
-    "inline-flex items-center justify-center rounded-lg bg-transparent font-medium leading-[125%] tracking-[-0.18px] text-[var(--fg-1)] transition-all duration-150 ease-in-out hover:bg-[rgba(34,29,29,0.03)]",
+    "inline-flex items-center justify-center rounded-lg bg-transparent font-medium leading-tight tracking-normal text-fg-1 transition-all duration-150 ease-in-out hover:bg-fg-1/[.03]",
   pill:
-    "inline-flex items-center gap-2 rounded-[6.1875rem] bg-[var(--bg-4)] text-xs font-medium leading-[105%] tracking-[-0.00563rem] text-[var(--fg-1)] transition-all duration-100 ease-in hover:bg-[#f0f0ef]",
+    "inline-flex items-center gap-2 rounded-pill bg-bg-4 text-xs font-medium leading-display tracking-caption text-fg-1 transition-all duration-100 ease-in hover:bg-bg-3",
   outline:
-    "inline-flex items-center justify-center rounded-full border border-[var(--border-2)] bg-transparent font-medium leading-[125%] tracking-[-0.18px] text-[var(--fg-1)] transition-all duration-150 ease-in-out hover:bg-[var(--bg-4)]",
+    "inline-flex items-center justify-center rounded-pill border border-border-2 bg-transparent font-medium leading-tight tracking-normal text-fg-1 transition-all duration-150 ease-in-out hover:bg-bg-4",
 }
 
 const sizeStyles: Record<ButtonSize, string> = {

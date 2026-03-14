@@ -22,17 +22,16 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="h-8 flex items-center gap-1.5 font-medium text-[var(--fg-1)]"
+            className="h-8 flex items-center gap-1.5 font-medium text-fg-1"
           >
             {label}
-            <div className="bg-[var(--purple)] mt-[1px] w-1.5 min-w-1.5 h-1.5 min-h-1.5 rounded-md flex-[0_1]" />
+            <div className="bg-accent-purple mt-px w-1.5 min-w-1.5 h-1.5 min-h-1.5 rounded-md flex-none" />
           </label>
         )}
         <input
           id={inputId}
           type={type}
-          className={`w-full border-none flex py-2.5 px-4 items-center gap-2 self-stretch h-10 bg-white text-[var(--fg-1)] leading-[150%] tracking-[-0.18px] focus:outline-none placeholder:text-[var(--fg-3)] disabled:cursor-not-allowed disabled:opacity-50 ${variantStyles[variant]} ${className ?? ""}`}
-          style={{ fontFeatureSettings: '"cv11" on' }}
+          className={`w-full border-none flex py-2.5 px-4 items-center gap-2 self-stretch h-10 bg-bg-1 text-fg-1 leading-prose tracking-normal focus:outline-none placeholder:text-fg-3 disabled:cursor-not-allowed disabled:opacity-50 [font-feature-settings:'cv11'_on] ${variantStyles[variant]} ${className ?? ""}`}
           ref={ref}
           {...props}
         />

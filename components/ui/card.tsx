@@ -7,21 +7,19 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const variantStyles: Record<CardVariant, string> = {
-  default: "bg-[var(--bg-5)] rounded-2xl",
-  muted: "bg-[var(--bg-4)] rounded-2xl",
-  flat: "bg-[var(--bg-3)] rounded-xl",
+  default: "bg-bg-5 rounded-2xl",
+  muted:   "bg-bg-4 rounded-2xl",
+  flat:    "bg-bg-3 rounded-xl",
 }
 
 const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, variant = "default", ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        className={`relative overflow-hidden ${variantStyles[variant]} ${className ?? ""}`}
-        {...props}
-      />
-    )
-  }
+  ({ className, variant = "default", ...props }, ref) => (
+    <div
+      ref={ref}
+      className={`relative overflow-hidden ${variantStyles[variant]} ${className ?? ""}`}
+      {...props}
+    />
+  )
 )
 Card.displayName = "Card"
 
@@ -36,7 +34,7 @@ const CardTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTML
   ({ className, ...props }, ref) => (
     <h3
       ref={ref}
-      className={`font-brand text-2xl font-semibold leading-[135%] tracking-[-0.48px] text-[var(--fg-1)] ${className ?? ""}`}
+      className={`font-brand text-2xl font-semibold leading-heading tracking-tight text-fg-1 ${className ?? ""}`}
       {...props}
     />
   )
@@ -49,7 +47,7 @@ const CardDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={`leading-[150%] tracking-[-0.18px] text-[var(--fg-2)] ${className ?? ""}`}
+    className={`leading-prose tracking-normal text-fg-2 ${className ?? ""}`}
     {...props}
   />
 ))
