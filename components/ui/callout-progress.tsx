@@ -10,10 +10,17 @@ interface CalloutProps extends React.HTMLAttributes<HTMLDivElement> {
   icon?: React.ReactNode
 }
 
+// Colour scale layering for Callout:
+// info    → surface: blue-4 (near-white),  bar + icon: blue-1 (dark navy)
+// warning → surface: bg-4 tinted yellow — no yellow scale, use bg-4 + accent-yellow bar
+// tip     → surface: bg-4 tinted green  — no green scale, use bg-4 + accent-green bar
+// danger  → surface: bg-4 tinted red    — no red scale,   use bg-4 + accent-red bar
+// Purple-scale tokens are available: if a purple callout is ever needed, purple-4 surface + purple-1 bar
+
 const variantMap: Record<CalloutVariant, { bar: string; bg: string; icon: React.ReactNode }> = {
   info: {
     bar: "bg-blue-1",
-    bg: "bg-blue-3",
+    bg: "bg-blue-4",          // lightest blue step — near-white tint, clearly "info" without saturation
     icon: (
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
         <circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1.3" className="stroke-blue-1" />
@@ -24,7 +31,7 @@ const variantMap: Record<CalloutVariant, { bar: string; bg: string; icon: React.
   },
   warning: {
     bar: "bg-accent-yellow",
-    bg: "bg-bg-4",
+    bg: "bg-bg-3",             // one step darker than white — no yellow scale available
     icon: (
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
         <path d="M8 2.5L14 13.5H2L8 2.5Z" stroke="currentColor" strokeWidth="1.3" strokeLinejoin="round" className="stroke-accent-yellow" />
@@ -35,7 +42,7 @@ const variantMap: Record<CalloutVariant, { bar: string; bg: string; icon: React.
   },
   tip: {
     bar: "bg-accent-green",
-    bg: "bg-bg-4",
+    bg: "bg-bg-3",             // no green scale — use neutral surface with strong green bar
     icon: (
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
         <path d="M8 2a4 4 0 0 1 2 7.46V11H6V9.46A4 4 0 0 1 8 2Z" stroke="currentColor" strokeWidth="1.3" className="stroke-accent-green" />
@@ -45,7 +52,7 @@ const variantMap: Record<CalloutVariant, { bar: string; bg: string; icon: React.
   },
   danger: {
     bar: "bg-accent-red",
-    bg: "bg-bg-4",
+    bg: "bg-bg-3",             // no red scale — use neutral surface with strong red bar
     icon: (
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
         <circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1.3" className="stroke-accent-red" />

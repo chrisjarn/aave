@@ -70,32 +70,34 @@ function ArticleCard({ href = "#", cover, title, excerpt, className = "", ...pro
 // Matches the colourful category card (Web3 / DeFi / etc):
 // solid accent background, white text, title + subtitle + article count
 
-// Colour scale for TopicCard:
-// "purple" → bg: purple-2, text accents: purple-1, overlay circles: purple-3, deep accent: purple-1
-// "blue"   → bg: blue-2,   text accents: blue-1,   overlay circles: blue-3,   deep accent: blue-1
-// "orange" → uses raw accent-red token (single warm accent, no scale)
-// Semantic layering: mid-scale for surface → step up for interactive elements → step down for overlays
+// ─── Colour scale reference ───────────────────────────────────────────────────
+// Purple scale: 4 (near-white) → 3 (light lavender) → 2 (medium) → 1 (vibrant)
+//   Surface: purple-4 or purple-3 | Accent/icon: purple-1 | Mid overlay: purple-2
+// Blue scale:   4 (near-white) → 3 (light icy) → 2 (mid steel) → 1 (dark navy)
+//   Surface: blue-4 or blue-3  | Accent/icon: blue-1  | Mid overlay: blue-2
+// Rule: use the lighter end of the scale for surfaces, step toward 1 for accents.
+// "orange" has no multi-step scale — uses accent-red directly.
 
 type TopicAccent = "purple" | "blue" | "orange"
 
 const topicAccentMap: Record<TopicAccent, { bg: string; textColor: string; circleA: string; circleB: string }> = {
   purple: {
-    bg: "bg-purple-2",
+    bg: "bg-purple-3",      // light lavender surface (was purple-2 — too dark)
     textColor: "text-fg-1",
-    circleA: "bg-purple-3",
-    circleB: "bg-purple-1",
+    circleA: "bg-purple-4", // near-white overlay
+    circleB: "bg-purple-2", // medium pop circle
   },
   blue: {
-    bg: "bg-blue-2",
-    textColor: "text-bg-1",
-    circleA: "bg-blue-3",
-    circleB: "bg-blue-1",
+    bg: "bg-blue-3",        // light icy surface (was blue-2 = mid steel — too dark)
+    textColor: "text-blue-1", // dark navy readable on light surface
+    circleA: "bg-blue-4",   // near-white overlay
+    circleB: "bg-blue-2",   // mid steel pop circle
   },
   orange: {
     bg: "bg-accent-red",
     textColor: "text-bg-1",
-    circleA: "bg-yellow-200/40",
-    circleB: "bg-yellow-100/60",
+    circleA: "bg-bg-1/20",
+    circleB: "bg-bg-1/40",
   },
 }
 
