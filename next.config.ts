@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 
+// Rebuild trigger
 const nextConfig: NextConfig = {
   webpack(config) {
     // Grab the existing rule that handles SVG imports
