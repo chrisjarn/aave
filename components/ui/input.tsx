@@ -30,7 +30,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         <input
           id={inputId}
           type={type}
-          className={`w-full border-none h-11 px-4 bg-bg-3 text-fg-1 text-sm font-sans leading-prose tracking-normal placeholder:text-fg-3 focus:outline-none focus:ring-2 focus:ring-focus disabled:cursor-not-allowed disabled:opacity-50 transition-shadow duration-150 [font-feature-settings:'cv11'_on,'ss01'_on] ${variantStyles[variant]} ${className ?? ""}`}
+          className={`w-full border-none h-11 px-4 bg-bg-3 text-fg-1 text-sm font-medium font-sans leading-prose tracking-normal placeholder:text-fg-3 placeholder:font-normal focus:outline-none focus:ring-2 focus:ring-focus disabled:cursor-not-allowed disabled:opacity-50 transition-shadow duration-150 [font-feature-settings:'cv11'_on,'ss01'_on] ${variantStyles[variant]} ${className ?? ""}`}
           ref={ref}
           {...props}
         />

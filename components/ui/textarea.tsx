@@ -30,7 +30,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
           ref={ref}
           aria-describedby={error ? errorId : hint ? hintId : undefined}
           aria-invalid={!!error}
-          className={`w-full min-h-[100px] resize-y rounded-lg border border-border-1 bg-bg-1 px-4 py-3 text-fg-1 leading-prose tracking-normal placeholder:text-fg-3 focus:outline-none focus:ring-2 focus:ring-focus transition-shadow disabled:cursor-not-allowed disabled:opacity-50 [font-feature-settings:'cv11'_on] ${error ? "border-accent-red focus:ring-accent-red/40" : "border-border-1 focus:ring-focus/40"} ${className ?? ""}`}
+          className={`w-full min-h-[100px] resize-y rounded-xl border-none bg-bg-3 px-4 py-3 text-sm font-medium text-fg-1 leading-prose tracking-normal placeholder:text-fg-3 placeholder:font-normal focus:outline-none focus:ring-2 focus:ring-focus transition-shadow disabled:cursor-not-allowed disabled:opacity-50 [font-feature-settings:'cv11'_on] ${error ? "ring-1 ring-accent-red focus:ring-accent-red/60" : ""} ${className ?? ""}`}
           {...props}
         />
         {error && (
