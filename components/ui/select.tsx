@@ -171,7 +171,7 @@ const SelectItem = React.forwardRef<HTMLButtonElement, SelectItemProps>(
         role="option"
         aria-selected={isSelected}
         onClick={() => onSelect(value)}
-        className={`flex w-full items-center justify-between gap-2 px-4 py-2 text-sm leading-prose tracking-normal transition-colors hover:bg-bg-4 ${isSelected ? "text-purple-1 bg-purple-4" : "text-fg-1"} ${className ?? ""}`}
+        className={`flex w-full items-center justify-between gap-2 px-4 py-2 text-sm leading-prose tracking-normal transition-colors hover:bg-bg-4 ${isSelected ? "text-purple-1 bg-bg-5" : "text-fg-1"} ${className ?? ""}`}
         {...props}
       >
         {children}
