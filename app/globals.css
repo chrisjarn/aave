@@ -23,27 +23,58 @@
     max-width: 100%;
     height: auto;
   }
-}
 
-@layer utilities {
-  .section-styles {
-    @apply relative flex flex-col items-center w-full px-5 md:px-12 py-12 md:py-[100px];
+  * {
+    @apply border-border outline-ring/50;
   }
 
-  .section-border-b {
-    @apply after:content-[''] after:absolute after:bottom-0 after:w-[min(100%,1082px)] after:border-b after:border-[--border-1];
-  }
-
-  .section-inner {
-    @apply relative w-full max-w-[986px];
-  }
-
-  .section-divider {
-    @apply mx-auto w-[min(100%,1082px)] max-w-[90%] h-[.8px] bg-[--border-1];
+  body {
+    @apply bg-background text-foreground min-h-[100vh] flex flex-col;
   }
 }
 
 :root {
+  /* === Fluid Type Scale === */
+  --step--2: clamp(0.6944rem, 0.6594rem + 0.1752vi, 0.8rem);
+  --step--1: clamp(0.8333rem, 0.7699rem + 0.3172vi, 1rem);
+  --step-0: clamp(1rem, 0.8913rem + 0.5435vi, 1.25rem);
+  --step-1: clamp(1.2rem, 1.0237rem + 0.8817vi, 1.5625rem);
+  --step-2: clamp(1.44rem, 1.1665rem + 1.3675vi, 1.9531rem);
+  --step-3: clamp(1.728rem, 1.318rem + 2.0498vi, 2.4414rem);
+  --step-4: clamp(2.0736rem, 1.4741rem + 2.9977vi, 3.0518rem);
+  --step-5: clamp(2.4883rem, 1.6272rem + 4.3057vi, 3.8147rem);
+  --step-6: clamp(2.986rem, 1.7648rem + 6.1059vi, 4.7684rem);
+
+  /* === Fluid Space Scale === */
+  --space-3xs: clamp(0.25rem, 0.2065rem + 0.2174vi, 0.375rem);
+  --space-2xs: clamp(0.5rem, 0.4348rem + 0.3261vi, 0.6875rem);
+  --space-xs: clamp(0.75rem, 0.6413rem + 0.5435vi, 1.0625rem);
+  --space-s: clamp(1rem, 0.8696rem + 0.6522vi, 1.375rem);
+  --space-m: clamp(1.5rem, 1.3043rem + 0.9783vi, 2.0625rem);
+  --space-l: clamp(2rem, 1.7391rem + 1.3043vi, 2.75rem);
+  --space-xl: clamp(3rem, 2.6087rem + 1.9565vi, 4.125rem);
+  --space-2xl: clamp(4rem, 3.4783rem + 2.6087vi, 5.5rem);
+  --space-3xl: clamp(6rem, 5.2174rem + 3.913vi, 8.25rem);
+
+  /* === One-up Pairs === */
+  --space-s-m: clamp(1rem, 0.7174rem + 1.413vi, 2.0625rem);
+  --space-s-l: clamp(1rem, 0.4783rem + 2.6087vi, 2.75rem);
+  --space-m-l: clamp(1.5rem, 1.0652rem + 2.1739vi, 2.75rem);
+  --space-l-xl: clamp(2rem, 1.3478rem + 3.2609vi, 4.125rem);
+  --space-l-2xl: clamp(2rem, 1.0435rem + 4.7826vi, 5.5rem);
+  --space-xl-2xl: clamp(3rem, 2.2174rem + 3.913vi, 5.5rem);
+  --space-3xl-4xl: clamp(6rem, 4.4348rem + 7.826vi, 11rem);
+
+  /* === Fluid Semantic Tokens === */
+  --fluid-section: var(--space-l-2xl);
+  --fluid-section-sm: var(--space-s-l);
+  --fluid-section-lg: var(--space-3xl-4xl);
+  --fluid-component-gap: var(--space-s-m);
+  --fluid-surface-padding: var(--space-m-l);
+  --fluid-inline-padding: var(--space-s-l);
+  --surface-radius: 1rem;
+
+  /* === Light Mode Colours === */
   --bg-1: #fff;
   --bg-2: #fff;
   --bg-3: #fafaf9;
@@ -74,7 +105,7 @@
   --ease-snappy: cubic-bezier(0.175, 0.885, 0.32, 1.1);
   --ease-swift: cubic-bezier(0.19, 1, 0.22, 1);
 
-  /* Semantic shadow tokens — resolved per theme */
+  /* Semantic shadow tokens */
   --shadow-low: rgba(46, 15, 15, 0.01);
   --shadow-medium: rgba(46, 15, 15, 0.05);
   --shadow-high: rgba(46, 15, 15, 0.07);
@@ -105,6 +136,21 @@
     hsla(0, 0%, 100%, 0.008) 95.2%, hsla(0, 0%, 100%, 0.002) 98.2%,
     hsla(0, 0%, 100%, 0);
 
+  --hero-line-gradient: linear-gradient(
+      0deg,
+      color(display-p3 1 1 1/0.1),
+      color(display-p3 1 1 1/0.1)
+    ),
+    linear-gradient(
+      90deg,
+      color(display-p3 0.4196 0.8078 0.9608) 10.43%,
+      color(display-p3 1 0.7216 0) 27.01%,
+      color(display-p3 0.1216 0.502 0.4824) 44.64%,
+      color(display-p3 0.102 0.5333 0.9725) 56.05%,
+      color(display-p3 0.949 0.2863 0) 73.58%,
+      color(display-p3 0.5951 0.587 1) 90.51%
+    );
+
   --footer-line-gradient: linear-gradient(
       0deg,
       color(display-p3 1 1 1/0.1),
@@ -126,6 +172,44 @@
       color(display-p3 0.5951 0.587 1) 91.3%,
       color(display-p3 0.4196 0.8078 0.9608)
     );
+
+  /* === ShadCN Semantic Tokens === */
+  --background: #fff;
+  --foreground: #211d1d;
+  --card: #fcfcfb;
+  --card-foreground: #211d1d;
+  --popover: #fff;
+  --popover-foreground: #211d1d;
+  --primary: #211d1d;
+  --primary-foreground: #fff;
+  --secondary: #f7f6f6;
+  --secondary-foreground: #211d1d;
+  --muted: #f7f6f6;
+  --muted-foreground: #636161;
+  --accent: #1c4886;
+  --accent-foreground: #fff;
+  --destructive: #ff8947;
+  --destructive-foreground: #fff;
+  --border: #f1f1f0;
+  --input: #e1e1e0;
+  --ring: #9898ff;
+  --chart-1: #9898ff;
+  --chart-2: #63bbb6;
+  --chart-3: #ffd631;
+  --chart-4: #ff8947;
+  --chart-5: #b5e7fa;
+  --radius: 1rem;
+  --sidebar: #fff;
+  --sidebar-foreground: #211d1d;
+  --sidebar-primary: #211d1d;
+  --sidebar-primary-foreground: #fff;
+  --sidebar-accent: #f7f6f6;
+  --sidebar-accent-foreground: #211d1d;
+  --sidebar-border: #f1f1f0;
+  --sidebar-ring: #9898ff;
+  --success: #28d358;
+  --warning: #ffd631;
+  --error: #ff8947;
 }
 
 @supports (color: color(display-p3 1 1 1)) {
@@ -152,6 +236,79 @@
     --gho-1: color(display-p3 0.1569 0.8275 0.3451 / 1);
     --focus: color(display-p3 0.5961 0.5961 1 / 1);
   }
+}
+
+@layer utilities {
+  .container {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: 1rem;
+  }
+
+  @media (width >= 40rem) {
+    .container {
+      max-width: 40rem;
+      padding-inline: 2rem;
+    }
+  }
+
+  @media (width >= 48rem) {
+    .container {
+      max-width: 48rem;
+      padding-inline: 2rem;
+    }
+  }
+
+  @media (width >= 64rem) {
+    .container {
+      max-width: 64rem;
+    }
+  }
+
+  @media (width >= 80rem) {
+    .container {
+      max-width: 80rem;
+    }
+  }
+
+  @media (width >= 86rem) {
+    .container {
+      max-width: 86rem;
+    }
+  }
+
+  .section-styles {
+    @apply relative flex flex-col items-center w-full px-5 md:px-12 py-12 md:py-[100px];
+  }
+
+  .section-border-b {
+    @apply after:content-[''] after:absolute after:bottom-0 after:w-[min(100%,1082px)] after:border-b after:border-border;
+  }
+
+  .section-inner {
+    @apply relative w-full max-w-[986px];
+  }
+
+  .section-divider {
+    @apply mx-auto w-[min(100%,1082px)] max-w-[90%] h-[.8px] bg-border;
+  }
+
+  /* === Fluid Layout Utilities === */
+  .my-section { margin-top: var(--fluid-section); margin-bottom: var(--fluid-section); }
+  .my-section-sm { margin-top: var(--fluid-section-sm); margin-bottom: var(--fluid-section-sm); }
+  .my-section-lg { margin-top: var(--fluid-section-lg); margin-bottom: var(--fluid-section-lg); }
+  .gap-stack { gap: var(--fluid-component-gap); }
+  .gap-stack-sm { gap: var(--space-2xs); }
+  .gap-stack-lg { gap: var(--space-l); }
+  .gap-cluster { gap: var(--fluid-component-gap); }
+  .gap-cluster-sm { gap: var(--space-2xs); }
+  .gap-cluster-lg { gap: var(--space-l); }
+  .gap-grid { gap: var(--space-m); }
+  .gap-section-items { gap: var(--space-l-xl); }
+  .p-surface { padding: var(--fluid-surface-padding); }
+  .p-surface-sm { padding: var(--space-s); }
+  .p-surface-lg { padding: var(--space-l-xl); }
+  .px-inline { padding-left: var(--fluid-inline-padding); padding-right: var(--fluid-inline-padding); }
 }
 
 .link-more {
@@ -235,21 +392,96 @@
   background-size: 200% 200%;
 }
 
-/* ─── Dark Mode ─────────────────────────────────────────────────────────────
-   Tokens sourced from pro.aave.com dark theme (--*-dark vars).
-   All semantic tokens remap here so every component picks them up
-   automatically via `var(--*)` — no component changes needed.
-   ───────────────────────────────────────────────────────────────────────── */
+html {
+  opacity: 0;
+}
+
+html[data-theme='dark'],
+html[data-theme='light'],
 html.dark {
+  opacity: initial;
+}
+
+/* === Animation Keyframes === */
+@keyframes pulse-ring {
+  0% { transform: scale(0); opacity: 0; }
+  35% { opacity: 0.7; }
+  70% { transform: scale(2.5); opacity: 0; }
+  100% { transform: scale(0); opacity: 0; }
+}
+
+@keyframes pulse-dot {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.2); }
+  70%, 100% { transform: scale(1); }
+}
+
+@keyframes slide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes slide-footer-line {
+  0%, 70% { background-position: 0 0; }
+  100% { background-position: 100% 0; }
+}
+
+@layer utilities {
+  .animate-pulse-ring { animation: pulse-ring 2s ease-out infinite both; }
+  .animate-pulse-dot { animation: pulse-dot 2s ease-out infinite both; }
+  .animate-slide { animation: slide 20s linear infinite both; }
+  .animate-slide-footer-line { animation: slide-footer-line 6s ease-in-out infinite; }
+}
+
+/* ─── Dark Mode ─────────────────────────────────────────────────────────────
+   All semantic tokens remapped for dark mode. Dark backgrounds are flat sRGB values.
+   ───────────────────────────────────────────────────────────────────────── */
+html.dark,
+[data-theme='dark'] {
   color-scheme: dark;
 
-  /* ── Backgrounds: pure flat dark scale, no warmth, no transparency ── */
+  --background: #1a1a1a;
+  --foreground: #f5f5f4;
+  --card: #242424;
+  --card-foreground: #f5f5f4;
+  --popover: #1a1a1a;
+  --popover-foreground: #f5f5f4;
+  --primary: #f5f5f4;
+  --primary-foreground: #1a1a1a;
+  --secondary: #2e2e2e;
+  --secondary-foreground: #f5f5f4;
+  --muted: #2e2e2e;
+  --muted-foreground: #a1a1a1;
+  --accent: #5d7eaa;
+  --accent-foreground: #fff;
+  --destructive: #ff8947;
+  --destructive-foreground: #fff;
+  --border: #333;
+  --input: #3a3a3a;
+  --ring: #9898ff;
+  --chart-1: #9898ff;
+  --chart-2: #63bbb6;
+  --chart-3: #ffd631;
+  --chart-4: #ff8947;
+  --chart-5: #b5e7fa;
+  --sidebar: #1a1a1a;
+  --sidebar-foreground: #f5f5f4;
+  --sidebar-primary: #9898ff;
+  --sidebar-primary-foreground: #1a1a1a;
+  --sidebar-accent: #2e2e2e;
+  --sidebar-accent-foreground: #f5f5f4;
+  --sidebar-border: #333;
+  --sidebar-ring: #9898ff;
+  --success: #28d358;
+  --warning: #ffd631;
+  --error: #ff8947;
+
+  /* ── Backgrounds: pure flat dark scale ── */
   --bg-1: #0e0e0e;
   --bg-2: #141414;
   --bg-3: #1a1a1a;
   --bg-4: #222222;
   --bg-5: #2c2c2c;
-  --bg-6: #383838;
 
   /* ── Borders ── */
   --border-1: rgba(255, 255, 255, 0.08);
@@ -309,7 +541,6 @@ html.dark {
   --health-6: #5de35b;
   --health-7: #12f6aa;
 
-  /* ── Gradient stops remapped to flat dark base ── */
   --gradient-stops:
     #0e0e0e 0%, rgba(14,14,14,0.738) 19%, rgba(14,14,14,0.541) 34%,
     rgba(14,14,14,0.382) 47%, rgba(14,14,14,0.278) 56.5%,
@@ -318,6 +549,3 @@ html.dark {
     rgba(14,14,14,0.021) 91%, rgba(14,14,14,0.008) 95.2%,
     rgba(14,14,14,0.002) 98.2%, rgba(14,14,14,0);
 }
-
-/* display-p3 overrides are intentionally omitted for dark mode —
-   flat sRGB values are correct and should not be tinted by wide-gamut interpolation */
