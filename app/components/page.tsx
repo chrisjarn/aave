@@ -26,6 +26,9 @@ import { Table, TableHeader, TableBody, TableFooter as TableFoot, TableRow, Tabl
 import { StatCard, ArticleCard, TopicCard, GuidanceCard } from "../../components/ui/content-cards"
 import { Callout, ProgressBar } from "../../components/ui/callout-progress"
 
+// v4 venue/hospitality components
+import { VenueCard, EventTypeCard, HeroSection, SectionHeader } from "../../components/ui/venue-cards"
+
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
@@ -295,7 +298,7 @@ export default function ComponentsShowcase() {
             </Tooltip>
           </div>
 
-          {/* ════ CALLOUT ═══════════════════════════════════ */}
+          {/* ════ CALLOUT ════════��══════════════════════════ */}
           <SectionDivider title="Callout" />
           <div className="space-y-3 max-w-2xl">
             <Callout variant="info">The above applies to standard Hub and Spoke behaviour. Tailored implementations may vary.</Callout>
@@ -596,6 +599,102 @@ export default function ComponentsShowcase() {
             </TableFoot>
             <TableCaption>Aave V3 mainnet markets</TableCaption>
           </Table>
+
+          {/* ════ VENUE COMPONENTS ═══════════════════════════ */}
+          <SectionDivider title="Venue Components" />
+          <p className="text-fg-2 mb-6">Hospitality-focused components for Perth Stay and Play venue booking.</p>
+
+          {/* Hero Section */}
+          <SectionLabel>Hero Section</SectionLabel>
+          <HeroSection
+            title="Events & Functions"
+            subtitle="Versatile spaces for corporate conferences, award nights, social evenings, and celebrations"
+            actions={[
+              { label: "Our Venues" },
+              { label: "Current Deals", variant: "secondary" }
+            ]}
+            backgroundImage={
+              <img
+                src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1600&h=900&fit=crop"
+                alt="Hotel view"
+                className="w-full h-full object-cover"
+              />
+            }
+            className="rounded-2xl mb-8"
+          />
+
+          {/* Section Header */}
+          <SectionLabel>Section Header</SectionLabel>
+          <div className="grid grid-cols-1 lg:grid-cols-[300px_1fr] gap-8 mb-8">
+            <SectionHeader
+              title="Choose Your Space"
+              description="Discover our collection of unique event spaces across Perth."
+              ctaLabel="All Venues"
+            />
+            <div className="bg-bg-3 rounded-2xl p-8 flex items-center justify-center text-fg-3">
+              Content goes here
+            </div>
+          </div>
+
+          {/* Venue Card */}
+          <SectionLabel>Venue Card</SectionLabel>
+          <VenueCard
+            name="Cucina On Hay"
+            description="Italian-inspired dining within Mercure Perth, ideal for team meals, client lunches, and intimate celebrations. Private dining options available."
+            ctaLabel="View Cucina On Hay"
+            capacities={[
+              { label: "Main Dining", capacity: 70 },
+              { label: "Private Dining", capacity: 30 }
+            ]}
+            guestCount={70}
+            address="10 Irwin Street, Perth WA 6000"
+            image={
+              <img
+                src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&h=600&fit=crop"
+                alt="Cucina On Hay restaurant"
+                className="w-full h-full object-cover"
+              />
+            }
+            className="mb-8"
+          />
+
+          {/* Event Type Cards */}
+          <SectionLabel>Event Type Cards</SectionLabel>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <EventTypeCard
+              title="Sports & Awards Nights"
+              description="Celebrate achievements with tailored event packages including accommodation."
+              image={
+                <img
+                  src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&h=450&fit=crop"
+                  alt="Sports celebration"
+                  className="w-full h-full object-cover"
+                />
+              }
+            />
+            <EventTypeCard
+              title="Evening & Social Events"
+              description="Sophisticated settings perfect for team celebrations and networking occasions."
+              image={
+                <img
+                  src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=600&h=450&fit=crop"
+                  alt="Social event"
+                  className="w-full h-full object-cover"
+                />
+              }
+            />
+            <EventTypeCard
+              title="Corporate & Business Events"
+              description="Professional spaces designed for business gatherings, meetings, and conferences."
+              image={
+                <img
+                  src="https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600&h=450&fit=crop"
+                  alt="Business meeting"
+                  className="w-full h-full object-cover"
+                />
+              }
+            />
+          </div>
 
           <div className="h-20" />
         </div>
